@@ -1,0 +1,19 @@
+@font-face {
+    font-family: Overlock;
+    src: url('/font/Overlock-Regular.ttf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Playwrite;
+    src: url('/font/PlaywriteUSModern-Regular.ttf') format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Playwrite', sans-serif !important;
+    background: #d3cfcf !important;
+}
+
