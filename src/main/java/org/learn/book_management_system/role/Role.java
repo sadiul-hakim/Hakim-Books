@@ -26,6 +26,9 @@ public class Role {
     @Size(max = 40)
     private String role;
 
+    @Size(max = 200)
+    private String description;
+
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private Set<UserModel> user = new HashSet<>();
 }

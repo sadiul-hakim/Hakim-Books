@@ -2,35 +2,61 @@ package org.learn.book_management_system.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
+import org.learn.book_management_system.role.RoleDTO;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-@RestController
+@Slf4j
+@Controller
 @RequestMapping("/user/v1")
 @RequiredArgsConstructor
 class UserController {
     private final UserService userService;
 
-    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    private ModelAndView saveUser(@RequestBody @Valid UserDTO userDTO, BindingResult bindingResult, ModelAndView modelAndView) {
+    @PostMapping(value = "/")
+    private String saveUser(@ModelAttribute @Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("");
-            return modelAndView;
+            return "user";
         }
 
         Optional<UserDTO> savedUser = userService.save(userDTO);
-        modelAndView.setViewName("");
-        modelAndView.addObject("users", Collections.emptyList());
-        return modelAndView;
+        model.addAttribute("users", userService.getAll());
+        model.addAttribute("dto", new UserDTO());
+        model.addAttribute("saved", savedUser.isPresent());
+
+        return "redirect:/user";
+    }
+
+    @PostMapping(value = "/add-book-to-collection")
+    private String addBookToCollection(@ModelAttribute @Valid AddBookDTO dto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "index";
+        }
+
+        Set<Integer> ids = dto.getBookIds();
+        boolean assigned = userService.assignBookToUser(ids);
+        model.addAttribute("users", userService.getAll());
+        model.addAttribute("dto", new UserDTO());
+        model.addAttribute("assigned", assigned);
+
+        return "redirect:/home";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable int id, Model model) {
+        boolean deleted = userService.deleteById(id);
+
+        model.addAttribute("users", userService.getAll());
+        model.addAttribute("dto", new RoleDTO());
+        model.addAttribute("deleted", deleted);
+
+        return "redirect:/user";
     }
 }

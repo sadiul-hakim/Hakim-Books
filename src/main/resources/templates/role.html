@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(~{::title})}">
+  <title>Book Management</title>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row main-content">
+    <div th:replace="~{fragments/leftSide :: leftSide('role')}"></div>
+    <div th:replace="~{fragments/rightSide :: rightSide(~{::#content})}">
+      <div id="content" class="m-4 p-3 card">
+        <h4 class="text-info my-2">User Role</h4>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Role</th>
+            <th scope="col">Description</th>
+            <th scope="col">
+              <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addRole">
+                <img th:src="@{image/add.png}" width="35" height="35" alt="plus"/>
+              </button>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="r,stat:${roles}">
+            <th scope="row" th:text="${stat.index + 1}"></th>
+            <td th:text="${r.getRole()}"></td>
+            <td th:text="${r.getDescription()}"></td>
+            <td>
+              <a href="#">
+                <img th:src="@{image/edit.png}" width="35" height="35" alt="plus" class="me-1"/>
+              </a>
+              <a th:href="@{'/role/v1/delete/'+${r.getId()}}">
+                <img th:src="@{image/delete.png}" width="35" height="35" alt="plus"/>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addRole" tabindex="-1" aria-labelledby="addRoleLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addRoleLabel">Add Role</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="modal-body" th:action="@{'/role/v1/'}" method="post" th:object="${dto}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <div>
+          <label for="role">Role</label>
+          <input type="text" name="role" id="role" class="form-control" th:value="*{role}"/>
+        </div>
+        <br/>
+        <div>
+          <label for="description">Description</label>
+          <textarea name="description" id="description" cols="30" rows="10" class="form-control"
+                    th:field="*{description}"></textarea>
+        </div>
+        <br/>
+        <button class="btn btn-primary" type="submit">Add</button>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

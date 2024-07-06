@@ -13,7 +13,18 @@
 }
 
 body {
-    font-family: 'Playwrite', sans-serif !important;
+    font-family: 'Overlock', sans-serif !important;
     background: #d3cfcf !important;
 }
 
+.main-content{
+    height: 100vh;
+}
+
+a{
+    text-decoration: none;
+}
+
+#error_page{
+    background: white !important;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(~{::title})}">
+    <title>Book Management</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row main-content">
+        <div th:replace="~{fragments/leftSide :: leftSide('profile')}"></div>
+        <div th:replace="~{fragments/rightSide :: rightSide(~{::#content})}">
+            <div id="content" class="m-4 p-3 card">
+                <div class="card-body">
+                    <img th:src="@{'image/user/'+${user.getPhoto()}}" alt="profile" class="mx-auto text-center my-2 border border-3 rounded-1" width="140" height="150"/>
+                    <h2 class="my-2 d-flex justify-content-start align-items-center">
+                        <img th:src="@{image/person.png}" alt="person" class="me-1" width="35" height="35"/>
+                        <span th:text="${user.getFullName()}" class="text-info"></span>
+                    </h2>
+                    <p class="my-2 d-flex justify-content-start align-items-center">
+                        <img th:src="@{image/email.png}" alt="person" class="me-1" width="35" height="35"/>
+                        <span th:text="${user.getEmail()}" class="text-muted"></span>
+                    </p>
+                    <p class="mb-2">
+                        "<span th:text="${user.getThoughts()}" class="lead"></span>"
+                    </p>
+                    <button class="btn btn-info">Edit Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

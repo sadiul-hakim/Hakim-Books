@@ -2,15 +2,11 @@ package org.learn.book_management_system.author;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.Optional;
 
 @Controller
@@ -19,16 +15,28 @@ import java.util.Optional;
 class AuthorController {
     private final AuthorService authorService;
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView save(@RequestBody @Valid AuthorDTO author, BindingResult bindingResult, ModelAndView modelAndView) {
+    @PostMapping(value = "/")
+    public String save(@ModelAttribute @Valid AuthorDTO author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("");
-            return modelAndView;
+            return "author";
         }
 
         Optional<AuthorDTO> save = authorService.save(author);
-        modelAndView.setViewName("");
-        modelAndView.addObject("authors", Collections.emptyList());
-        return modelAndView;
+        model.addAttribute("authors", authorService.getAll());
+        model.addAttribute("saved", save.isPresent());
+        model.addAttribute("author", new AuthorDTO());
+
+        return "redirect:/author";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteAuthor(@PathVariable int id,Model model){
+        boolean deleted = authorService.deleteById(id);
+
+        model.addAttribute("authors", authorService.getAll());
+        model.addAttribute("author", new AuthorDTO());
+        model.addAttribute("deleted",deleted);
+
+        return "redirect:/author";
     }
 }

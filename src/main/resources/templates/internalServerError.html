@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head(~{::title})}">
+    <title>Book Management - Error Page</title>
+</head>
+<body id="error_page">
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 d-flex flex-column justify-content-center align-items-center mx-auto mt-4">
+            <img th:src="@{image/error/error.png}" class="img-fluid w-75 mb-1" alt="error"/>
+            <h2 class="text-info mb-1">Internal Server Error</h2>
+            <p class="mb-1 text-muted">
+                Hi <span th:text="${user}"></span>, We encountered some issue. <br/>
+                We are doing our best to fix this issue.
+            </p>
+            <a th:href="@{/home}" class="btn btn-info">Home Page</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

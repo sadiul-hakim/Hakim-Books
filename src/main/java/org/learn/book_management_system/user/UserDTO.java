@@ -1,15 +1,24 @@
 package org.learn.book_management_system.user;
 
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public record UserDTO(
-        int id,
-        String fullName,
-        String email,
-        String password,
-        String displayName,
-        String thoughts,
-        String role,
-        LocalDateTime startDate
-) {
+import java.util.Set;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDTO {
+    private int id;
+    private String fullName;
+    private String email;
+    private String password;
+    private String photo;
+    private String thoughts;
+    private String role;
+    private String startDate;
+    private Set<Integer> owned_books;
 }

@@ -1,17 +1,25 @@
 package org.learn.book_management_system.book;
 
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.HashSet;
 import java.util.Set;
 
-public record BookDTO(
-        int id,
-        String title,
-        int pages,
-        int readPages,
-        int price,
-        Set<Integer> authors,
-        Set<Integer> owners,
-        LocalDateTime lastRead,
-        LocalDateTime publishDate
-) {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class BookDTO {
+    private int id;
+    private String title;
+    private int pages;
+    private int readPages;
+    private int price;
+    private String category;
+    private Set<String> authors = new HashSet<>();
+    private String lastRead;
+    private String publishDate;
 }

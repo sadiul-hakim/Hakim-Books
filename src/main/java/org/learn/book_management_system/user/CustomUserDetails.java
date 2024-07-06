@@ -1,5 +1,6 @@
 package org.learn.book_management_system.user;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,13 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-class CustomUserDetails implements UserDetails {
-
-    private final UserModel user;
-
-    public CustomUserDetails(UserModel user) {
-        this.user = user;
-    }
+record CustomUserDetails(UserModel user) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

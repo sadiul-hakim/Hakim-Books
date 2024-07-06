@@ -8,7 +8,9 @@
     <div class="row mt-4">
         <div class="col-md-6 mx-auto">
             <form class="card p-3" method="post" th:action="@{'/authenticate'}">
-                <h3 class="text-primary text-center my-2">Login To Your Account</h3>
+                <h3 class="text-primary text-center my-2 d-flex justify-content-center align-items-center">
+                    <img th:src="@{image/login.png}" width="35" height="35" class="me-1" alt="login"/> <span>Login To Your Account</span>
+                </h3>
                 <div th:if="${param.error}" class="alert alert-danger my-2 text-center">
                     Invalid username and password.
                 </div>

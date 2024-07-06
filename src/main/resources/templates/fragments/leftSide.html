@@ -1,0 +1,54 @@
+<div class="col-md-3 bg-dark h-100 m-0 text-light" th:fragment="leftSide(active)">
+    <div class="p-4 mt-3">
+        <h4 class="text-info d-flex justify-content-start align-items-center"><img th:src="@{image/logo.png}" width="35" height="35" alt="Logo" class="me-1"/> HBMS</h4>
+    </div>
+    <div class="mt-4 h-75 d-flex flex-column justify-content-center align-items-start">
+        <ul class="list-group w-100 list-group-flush">
+            <li th:class="'list-group-item text-info' + (${active} == 'book' ? ' list-group-item-action list-group-item-info' : ' bg-dark')">
+                <a th:href="@{'/home'}" class="d-flex justify-content-start align-items-center text-info">
+                    <img th:src="@{image/bar/book.png}" alt="book" width="35" height="35"  class="me-1"/> <span>Home</span>
+                </a>
+            </li>
+            <li th:class="'list-group-item text-info' + (${active} == 'addBook' ? ' list-group-item-action list-group-item-info' : ' bg-dark')">
+                <a th:href="@{'/addBook'}" class="d-flex justify-content-start align-items-center text-info">
+                    <img th:src="@{image/bar/addBook.png}" alt="book" width="35" height="35" class="me-1"/> <span>Add Book</span>
+                </a>
+            </li>
+            <li th:class="'list-group-item text-info' + (${active} == 'bookCategory' ? ' list-group-item-action list-group-item-info' : ' bg-dark')">
+                <a th:href="@{'/bookCategory'}" class="d-flex justify-content-start align-items-center text-info">
+                    <img th:src="@{image/bar/classification.png}" alt="book" width="35" height="35" class="me-1"/> <span>Book Category</span>
+                </a>
+            </li>
+            <li th:class="'list-group-item text-info' + (${active} == 'author' ? ' list-group-item-action list-group-item-info' : ' bg-dark')">
+                <a th:href="@{'/author'}" class="d-flex justify-content-start align-items-center text-info">
+                    <img th:src="@{image/bar/editor.png}" alt="book" width="35" height="35" class="me-1"/> <span>Author</span>
+                </a>
+            </li>
+            <li th:class="'list-group-item text-info' + (${active} == 'profile' ? ' list-group-item-action list-group-item-info' : ' bg-dark')">
+                <a th:href="@{'/profile'}" class="d-flex justify-content-start align-items-center text-info">
+                    <img th:src="@{image/bar/profile.png}" alt="book" width="35" height="35" class="me-1"/> <span>User Profile</span>
+                </a>
+            </li>
+            <li th:class="'list-group-item text-info' + (${active} == 'user' ? ' list-group-item-action list-group-item-info' : ' bg-dark')">
+                <a th:href="@{'/user'}" class="d-flex justify-content-start align-items-center text-info">
+                    <img th:src="@{image/bar/team.png}" alt="book" width="35" height="35" class="me-1"/> <span>User</span>
+                </a>
+            </li>
+            <li th:class="'list-group-item text-info' + (${active} == 'role' ? ' list-group-item-action list-group-item-info' : ' bg-dark')">
+                <a th:href="@{'/role'}" class="d-flex justify-content-start align-items-center text-info">
+                    <img th:src="@{image/bar/role.png}" alt="book" width="35" height="35" class="me-1"/> <span>Role</span>
+                </a>
+            </li>
+            <li th:class="'list-group-item text-info' + (${active} == 'resetPassword' ? ' list-group-item-action list-group-item-info' : ' bg-dark')">
+                <a th:href="@{'/resetPassword'}" class="d-flex justify-content-start align-items-center text-info">
+                    <img th:src="@{image/bar/reset-password.png}" alt="book" width="35" height="35" class="me-1"/> <span>Reset Password</span>
+                </a>
+            </li>
+            <li th:class="'list-group-item text-info' + (${active} == 'setting' ? ' list-group-item-action list-group-item-info' : ' bg-dark')">
+                <a th:href="@{'/setting'}" class="d-flex justify-content-start align-items-center text-info">
+                    <img th:src="@{image/bar/setting.png}" alt="book" width="35" height="35" class="me-1"/> <span>Setting</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

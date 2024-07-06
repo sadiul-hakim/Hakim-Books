@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.learn.book_management_system.author.Author;
-import org.learn.book_management_system.user.UserModel;
+import org.learn.book_management_system.category.BookCategory;
+import org.learn.book_management_system.util.StringListConverter;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -26,14 +26,17 @@ public class Book {
     private int readPages;
     private int price;
 
-    @ManyToMany(mappedBy = "books")
-    private Set<Author> authors = new HashSet<>();
+    @Column(columnDefinition = "JSON")
+    @Convert(converter = StringListConverter.class)
+    private Set<String> authors = new HashSet<>();
 
-    @ManyToMany(mappedBy = "owned_books")
-    private Set<UserModel> owners = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private BookCategory category;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp lastRead;
+    private Timestamp lastRead = new Timestamp(System.currentTimeMillis());
+
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp publishDate;
+    private Timestamp publishDate = new Timestamp(System.currentTimeMillis());
 }

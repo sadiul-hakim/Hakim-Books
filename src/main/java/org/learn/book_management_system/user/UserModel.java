@@ -8,11 +8,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.learn.book_management_system.book.Book;
 import org.learn.book_management_system.role.Role;
+import org.learn.book_management_system.util.IntegerSetConverter;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,6 +34,7 @@ public class UserModel {
     @NotEmpty
     @Email
     @Size(max = 75)
+    @Column(unique = true)
     private String email;
 
     @NotEmpty
@@ -39,17 +42,22 @@ public class UserModel {
     private String password;
 
     @NotEmpty
-    @Size(max = 25)
-    private String displayName;
+    @Size(max = 200)
+    private String photo;
 
     @Size(max = 500)
     private String thoughts;
     @ManyToOne
     private Role role;
 
-    @ManyToMany
-    private Set<Book> owned_books = new HashSet<>();
+    @Column(columnDefinition = "JSON")
+    @Convert(converter = IntegerSetConverter.class)
+    private Set<Integer> owned_books = new HashSet<>();
 
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp startDate = new Timestamp(System.currentTimeMillis());
+
+    public void addBook(int book) {
+        owned_books.add(book);
+    }
 }
